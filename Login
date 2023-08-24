@@ -1,0 +1,53 @@
+Feature:Login
+
+	Background: Below are common step for every Scenario
+	Given User launch Chrome browser
+	When  User opens URL "https://admin-demo.nopcommerce.com/login"
+	
+	@Sanity
+	Scenario: Successful Login with Valid Credentials
+	And   User enters Email as "admin@yourstore.com" and Password as "admin"
+	When  Click on Login
+	Then  Page Title should "Dashboard / nopCommerce administration"
+	When  User click on Log out Link
+	Then  Page Title should be "Your store. Login"
+	And   Close browser
+	
+	@Smoke
+	Scenario:  Login with Invalid Credentials
+	And   User enters Email as "admin@yourstore.com" and Password as "adminN"
+	When  Click on Login
+	Then  Page Title should "Dashboard / nopCommerce administration"
+	When  User click on Log out Link
+	Then  Page Title should be "Your store. Login"
+	And   Close browser
+	
+	
+	@Regression
+	Scenario Outline: Login data Driven
+	Given User launch Chrome browser
+	When  User opens URL "https://admin-demo.nopcommerce.com/login"
+	And   User enters Email as "<email>" and Password as "<password>"
+	When  Click on Login
+	Then  Page Title should "Dashboard / nopCommerce administration"
+	When  User click on Log out Link
+	Then  Page Title should be "Your store. Login"
+	And   Close browser
+	
+	Examples:
+		|email | password|
+		|admin@yourstore.com | admin |
+		|admin1@yourstore.com | admin1 |
+		
+	
+	@Full
+	Scenario:  Login with Invalid Credentials
+	Given User launch Chrome browser
+	When  User opens URL "https://admin-demo.nopcommerce.com/login"
+	And   User enters Email as "admin@yourstore.com" and Password as "adminN"
+	When  Click on Login
+	Then  Page Title should "Dashboard / nopCommerce administration"
+	When  User click on Log out Link
+	Then  Page Title should be "Your store. Login"
+	And   Close browser
+	
